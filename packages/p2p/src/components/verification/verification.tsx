@@ -7,10 +7,7 @@ import Dp2pBlocked from 'Components/dp2p-blocked';
 import { Localize } from 'Components/i18next';
 import { useStores } from 'Stores/index';
 
-const VerificationWrapper: React.FC<React.PropsWithChildren<{ should_wrap: boolean }>> = ({
-    should_wrap,
-    children,
-}) => {
+const VerificationWrapper = ({ should_wrap, children }: React.PropsWithChildren<{ should_wrap: boolean }>) => {
     if (should_wrap) {
         return (
             <div
@@ -27,7 +24,7 @@ const VerificationWrapper: React.FC<React.PropsWithChildren<{ should_wrap: boole
     return children as JSX.Element;
 };
 
-const Verification: React.FC<{ should_wrap?: boolean }> = ({ should_wrap = false }) => {
+const Verification = ({ should_wrap = false }: { should_wrap?: boolean }) => {
     const { general_store } = useStores();
 
     if (!general_store.is_advertiser && general_store.poi_status === 'verified' && general_store.nickname) {

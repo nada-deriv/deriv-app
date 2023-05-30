@@ -8,7 +8,7 @@ type TPageReturnProps = {
     page_title: string;
 };
 
-const PageReturn = ({ className = '', onClick, page_title }: TPageReturnProps) => {
+const PageReturn: React.FC<TPageReturnProps> = ({ className = '', onClick, page_title }) => {
     return (
         <div className={classNames('page-return', className)} data-testid='dt_page_return'>
             <div onClick={onClick} className='page-return__button'>

@@ -1,7 +1,7 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
+import { screen, render, fireEvent } from '@testing-library/react';
 import { useStores } from 'Stores';
-import Verification from '../verification.jsx';
+import Verification from '../verification';
 
 jest.mock('Stores', () => ({
     ...jest.requireActual('Stores'),
@@ -28,6 +28,47 @@ describe('<Verification />', () => {
 
         const el_dp2p_verification_container = screen.getByTestId('dt_verification_container');
         expect(el_dp2p_verification_container).toBeInTheDocument();
+    });
+
+    it('Component should take default value false for should_wrap when not passed', () => {
+        useStores.mockImplementation(() => ({
+            general_store: { ...mocked_store_values },
+        }));
+
+        render(<Verification />);
+
+        const el_dp2p_verification_container = screen.getByTestId('dt_verification_container');
+        expect(el_dp2p_verification_container).toBeInTheDocument();
+    });
+
+    it('Component should take checklist items status as done', () => {
+        useStores.mockImplementation(() => ({
+            general_store: { ...mocked_store_values, nickname: 'test', poi_status: 'verified', is_advertiser: true },
+        }));
+
+        render(<Verification />);
+
+        const el_dp2p_verification_container = screen.getByTestId('dt_verification_container');
+        expect(el_dp2p_verification_container).toBeInTheDocument();
+    });
+
+    it('Component should handle onclick for going to account poi verification', () => {
+        useStores.mockImplementation(() => ({
+            general_store: { ...mocked_store_values, nickname: 'test', is_advertiser: true },
+        }));
+
+        Object.defineProperty(window, 'location', {
+            value: {
+                href: 'https://test.com',
+            },
+            writable: true,
+        });
+
+        render(<Verification should_wrap />);
+
+        const el_action_button = screen.getByTestId('dt_checklist_item_status_action');
+        fireEvent.click(el_action_button);
+        expect(window.location.href).toBe('/account/proof-of-identity?ext_platform_url=/cashier/p2p');
     });
 
     it('Should show verification wrapper if should_wrap prop is true', () => {

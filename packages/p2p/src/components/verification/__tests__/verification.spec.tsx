@@ -1,11 +1,11 @@
 import React from 'react';
 import { screen, render, fireEvent } from '@testing-library/react';
-import { useStores } from 'Stores';
+import { useStores } from 'Stores/index';
 import Verification from '../verification';
 
 jest.mock('Stores', () => ({
     ...jest.requireActual('Stores'),
-    useStores: jest.fn(),
+    useStores: jest.fn().mockImplementation(() => () => true),
 }));
 
 const mocked_store_values = {
@@ -20,9 +20,9 @@ const mocked_store_values = {
 
 describe('<Verification />', () => {
     it('Component should be rendered', () => {
-        useStores.mockImplementation(() => ({
+        (useStores as jest.Mock).mockReturnValue({
             general_store: { ...mocked_store_values },
-        }));
+        });
 
         render(<Verification should_wrap={false} />);
 
@@ -31,9 +31,9 @@ describe('<Verification />', () => {
     });
 
     it('Component should take default value false for should_wrap when not passed', () => {
-        useStores.mockImplementation(() => ({
+        (useStores as jest.Mock).mockReturnValue({
             general_store: { ...mocked_store_values },
-        }));
+        });
 
         render(<Verification />);
 
@@ -42,9 +42,9 @@ describe('<Verification />', () => {
     });
 
     it('Component should take checklist items status as done', () => {
-        useStores.mockImplementation(() => ({
+        (useStores as jest.Mock).mockReturnValue({
             general_store: { ...mocked_store_values, nickname: 'test', poi_status: 'verified', is_advertiser: true },
-        }));
+        });
 
         render(<Verification />);
 
@@ -53,9 +53,9 @@ describe('<Verification />', () => {
     });
 
     it('Component should handle onclick for going to account poi verification', () => {
-        useStores.mockImplementation(() => ({
+        (useStores as jest.Mock).mockReturnValue({
             general_store: { ...mocked_store_values, nickname: 'test', is_advertiser: true },
-        }));
+        });
 
         Object.defineProperty(window, 'location', {
             value: {
@@ -72,9 +72,9 @@ describe('<Verification />', () => {
     });
 
     it('Should show verification wrapper if should_wrap prop is true', () => {
-        useStores.mockImplementation(() => ({
+        (useStores as jest.Mock).mockReturnValue({
             general_store: { ...mocked_store_values },
-        }));
+        });
 
         render(<Verification should_wrap />);
 
@@ -83,9 +83,9 @@ describe('<Verification />', () => {
     });
 
     it('Should render Dp2pBlocked component', () => {
-        useStores.mockImplementation(() => ({
+        (useStores as jest.Mock).mockReturnValue({
             general_store: { ...mocked_store_values, poi_status: 'verified', nickname: 'test' },
-        }));
+        });
 
         render(<Verification should_wrap={false} />);
 

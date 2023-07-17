@@ -1,0 +1,24 @@
+.advertiser-page-header {
+    position: relative;
+    &__page-return {
+        margin-top: unset;
+
+        .dc-text {
+            align-self: flex-start;
+        }
+
+        @include mobile {
+            border-bottom: 1px solid var(--general-section-1);
+            margin: unset;
+            padding: 1.2rem 0;
+
+            .page-return__button {
+                padding: 0 1.6rem;
+            }
+
+            .dc-text {
+                align-self: self-end;
+            }
+        }
+    }
+}

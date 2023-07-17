@@ -18,19 +18,37 @@ import BlockUserOverlay from './block-user/block-user-overlay';
 const AdvertiserPage = () => {
     const { advertiser_page_store, buy_sell_store, general_store, my_profile_store } = useStores();
     const { hideModal, showModal, useRegisterModalProps } = useModalManagerContext();
+    const {
+        active_index,
+        active_tab_route,
+        advertiser_id,
+        advertiser_info,
+        block_unblock_user_error,
+        error_code,
+        is_block_unblock_user_loading,
+        setBlockUnblockUserError,
+    } = general_store;
+    const {
+        advertiser_details_id,
+        advertiser_details_name,
+        counterparty_advertiser_info,
+        error_message: error_message_api,
+        is_counterparty_advertiser_blocked,
+        is_loading,
+    } = advertiser_page_store;
 
-    const is_my_advert = advertiser_page_store.advertiser_details_id === general_store.advertiser_id;
+    const is_my_advert = advertiser_details_id === advertiser_id;
     // Use general_store.advertiser_info since resubscribing to the same id from advertiser page returns error
-    const info = is_my_advert ? general_store.advertiser_info : advertiser_page_store.counterparty_advertiser_info;
+    const info = is_my_advert ? advertiser_info : counterparty_advertiser_info;
 
     const history = useHistory();
 
     const { name } = info;
 
-    const nickname = advertiser_page_store.advertiser_details_name ?? name;
+    const nickname = advertiser_details_name ?? name;
 
     const error_message = () => {
-        return !!advertiser_page_store.is_counterparty_advertiser_blocked && !is_my_advert
+        return !!is_counterparty_advertiser_blocked && !is_my_advert
             ? localize("Unblocking wasn't possible as {{name}} is not using Deriv P2P anymore.", {
                   name: nickname,
               })
@@ -44,12 +62,10 @@ const AdvertiserPage = () => {
             key: 'ErrorModal',
             props: {
                 error_message:
-                    general_store.error_code === api_error_codes.INVALID_ADVERTISER_ID
-                        ? error_message()
-                        : general_store.block_unblock_user_error,
+                    error_code === api_error_codes.INVALID_ADVERTISER_ID ? error_message() : block_unblock_user_error,
                 error_modal_button_text: localize('Got it'),
                 error_modal_title:
-                    general_store.error_code === api_error_codes.INVALID_ADVERTISER_ID
+                    error_code === api_error_codes.INVALID_ADVERTISER_ID
                         ? localize('{{name}} is no longer on Deriv P2P', {
                               name: nickname,
                           })
@@ -57,17 +73,16 @@ const AdvertiserPage = () => {
                 has_close_icon: false,
                 onClose: () => {
                     buy_sell_store.hideAdvertiserPage();
-                    history.push(general_store.active_tab_route);
-                    if (general_store.active_index !== 0)
-                        my_profile_store.setActiveTab(my_profile_tabs.MY_COUNTERPARTIES);
+                    history.push(active_tab_route);
+                    if (active_index !== 0) my_profile_store.setActiveTab(my_profile_tabs.MY_COUNTERPARTIES);
                     advertiser_page_store.onCancel();
-                    general_store.setBlockUnblockUserError('');
+                    setBlockUnblockUserError('');
                     hideModal();
                 },
                 width: isMobile() ? '90rem' : '40rem',
             },
         });
-        general_store.setBlockUnblockUserError(null);
+        setBlockUnblockUserError(null);
     };
 
     React.useEffect(() => {
@@ -105,31 +120,31 @@ const AdvertiserPage = () => {
         key: 'BlockUserModal',
         props: {
             advertiser_name: name,
-            is_advertiser_blocked: !!advertiser_page_store.is_counterparty_advertiser_blocked && !is_my_advert,
+            is_advertiser_blocked: !!is_counterparty_advertiser_blocked && !is_my_advert,
             onCancel: advertiser_page_store.onCancel,
             onSubmit: advertiser_page_store.onSubmit,
         },
     });
 
-    if (advertiser_page_store.is_loading || general_store.is_block_unblock_user_loading) {
+    if (is_loading || is_block_unblock_user_loading) {
         return <Loading is_fullscreen={false} />;
     }
 
-    if (advertiser_page_store.error_message) {
-        return <div className='advertiser-page__error'>{advertiser_page_store.error_message}</div>;
+    if (error_message_api) {
+        return <div className='advertiser-page__error'>{error_message_api}</div>;
     }
 
     const onClickBack = () => {
         buy_sell_store.hideAdvertiserPage();
-        if (general_store.active_index === general_store.path.my_profile)
+        if (active_index === general_store.path.my_profile)
             my_profile_store.setActiveTab(my_profile_tabs.MY_COUNTERPARTIES);
+        history.push(active_tab_route);
     };
 
     return (
         <div
             className={classNames('advertiser-page', {
-                'advertiser-page--no-scroll':
-                    !!advertiser_page_store.is_counterparty_advertiser_blocked && !is_my_advert,
+                'advertiser-page--no-scroll': !!is_counterparty_advertiser_blocked && !is_my_advert,
             })}
         >
             <AdvertiserPageHeader
@@ -138,7 +153,7 @@ const AdvertiserPage = () => {
                 is_my_advert={is_my_advert}
             />
             <BlockUserOverlay
-                is_visible={!!advertiser_page_store.is_counterparty_advertiser_blocked && !is_my_advert}
+                is_visible={!!is_counterparty_advertiser_blocked && !is_my_advert}
                 onClickUnblock={() =>
                     showModal({
                         key: 'BlockUserModal',

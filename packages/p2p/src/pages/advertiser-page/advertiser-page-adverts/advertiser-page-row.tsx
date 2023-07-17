@@ -7,7 +7,6 @@ import { useModalManagerContext } from 'Components/modal-manager/modal-manager-c
 import { buy_sell } from 'Constants/buy-sell';
 import { useStores } from 'Stores/index';
 import { generateEffectiveRate } from 'Utils/format-value';
-import './advertiser-page-row.scss';
 
 type TAvailabilityStatus = 0 | 1;
 type TAdvertiserDetails = {
@@ -108,37 +107,39 @@ const AdvertiserPageRow = ({ row: advert }: TAdvertiserPageRow) => {
             </Table.Cell>
         );
 
+    const getPaymentListContent = () => (
+        <div className='advertiser-page-adverts__payment-methods-list'>
+            {payment_method_names
+                ? payment_method_names.map(payment_method => {
+                      return (
+                          <div className='advertiser-page-adverts__payment-method' key={payment_method}>
+                              <Text line-height='l' size={isMobile() ? 'xxxs' : 'xs'}>
+                                  {payment_method}
+                              </Text>
+                          </div>
+                      );
+                  })
+                : null}
+        </div>
+    );
+
     return (
         <React.Fragment>
             <DesktopWrapper>
                 <Table.Row className='advertiser-page-adverts__table-row'>
                     <Table.Cell>{`${min_order_amount_limit_display}-${max_order_amount_limit_display} ${currency}`}</Table.Cell>
-                    <Table.Cell className='advertiser-page__adverts-price'>
+                    <Table.Cell>
                         <Text color='profit-success' size='xs' weight='bold'>
                             {display_effective_rate} {local_currency}
                         </Text>
                     </Table.Cell>
-                    <Table.Cell>
-                        <div className='advertiser-page__payment-methods-list'>
-                            {payment_method_names
-                                ? payment_method_names.map(payment_method => {
-                                      return (
-                                          <div className='advertiser-page__payment-methods-list' key={payment_method}>
-                                              <Text color='general' size='xs' line-height='l'>
-                                                  {payment_method}
-                                              </Text>
-                                          </div>
-                                      );
-                                  })
-                                : null}
-                        </div>
-                    </Table.Cell>
+                    <Table.Cell>{getPaymentListContent()}</Table.Cell>
                     {getButtonContent()}
                 </Table.Row>
             </DesktopWrapper>
             <MobileWrapper>
                 <Table.Row className='advertiser-page-adverts__table-row'>
-                    <Table.Cell className='advertiser-page__cell'>
+                    <Table.Cell className='advertiser-page-adverts__cell'>
                         <Text size='xxs'>
                             <Localize
                                 i18n_default_text='Rate (1 {{currency}})'
@@ -147,13 +148,10 @@ const AdvertiserPageRow = ({ row: advert }: TAdvertiserPageRow) => {
                                 }}
                             />
                         </Text>
-
-                        <div className='advertiser-page__adverts-price'>
-                            <Text as='div' color='profit-success' weight='bold'>
-                                {display_effective_rate} {local_currency}
-                            </Text>
-                        </div>
-                        <div className='advertiser-page__cell-limit'>
+                        <Text as='div' color='profit-success' weight='bold'>
+                            {display_effective_rate} {local_currency}
+                        </Text>
+                        <div className='advertiser-page-adverts__cell-limit'>
                             <Text size='xxs'>
                                 <Localize
                                     i18n_default_text='Limits {{min_order_amount_limit_display}}-{{max_order_amount_limit_display}} {{currency}}'
@@ -165,19 +163,7 @@ const AdvertiserPageRow = ({ row: advert }: TAdvertiserPageRow) => {
                                 />
                             </Text>
                         </div>
-                        <div className='advertiser-page__payment-methods-list'>
-                            {payment_method_names
-                                ? payment_method_names.map(payment_method => {
-                                      return (
-                                          <div className='advertiser-page__payment-method' key={payment_method}>
-                                              <Text color='general' line-height='l' size='xxxs'>
-                                                  {payment_method}
-                                              </Text>
-                                          </div>
-                                      );
-                                  })
-                                : null}
-                        </div>
+                        {getPaymentListContent()}
                     </Table.Cell>
                     {getButtonContent()}
                 </Table.Row>

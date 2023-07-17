@@ -9,7 +9,6 @@
         border-bottom: none;
         grid-template-columns: repeat(2, 1fr);
         margin: 0.5rem 0;
-        width: 100vw;
     }
 
     &__italic {
@@ -40,6 +39,9 @@
 
             &:nth-child(odd) {
                 padding-left: 0;
+            }
+            &:nth-child(even) {
+                border-right: none;
             }
         }
 

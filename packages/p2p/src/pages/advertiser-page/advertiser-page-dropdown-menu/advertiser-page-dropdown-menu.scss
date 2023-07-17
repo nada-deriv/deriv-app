@@ -16,6 +16,10 @@
 
         &-placeholder {
             top: auto;
+
+            .dc-dropdown__display-placeholder-text {
+                color: var(--text-prominent);
+            }
         }
     }
 

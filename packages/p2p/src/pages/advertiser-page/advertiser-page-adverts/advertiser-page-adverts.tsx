@@ -58,7 +58,7 @@ const AdvertiserPageAdverts = () => {
                         </Table>
                     ) : (
                         <P2pEmpty
-                            className={classNames('', { 'advertiser-page-empty': isMobile() })}
+                            className={classNames('', { 'advertiser-page-adverts__empty': isMobile() })}
                             icon='IcNoData'
                             title={localize('There are no ads yet')}
                         />

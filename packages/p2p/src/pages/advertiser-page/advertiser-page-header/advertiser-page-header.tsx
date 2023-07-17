@@ -12,8 +12,12 @@ type TAdvertiserPageProps = {
 
 const AdvertiserPageHeader = ({ onClickPageReturn, is_my_advert, title }: TAdvertiserPageProps) => {
     return (
-        <div className='advertiser-page__page-return-header'>
-            <PageReturn className='buy-sell__advertiser-page-return' onClick={onClickPageReturn} page_title={title} />
+        <div className='advertiser-page-header'>
+            <PageReturn
+                className='advertiser-page-header__page-return'
+                onClick={onClickPageReturn}
+                page_title={title}
+            />
             {!is_my_advert && (
                 <MobileWrapper>
                     <AdvertiserPageDropdownMenu />

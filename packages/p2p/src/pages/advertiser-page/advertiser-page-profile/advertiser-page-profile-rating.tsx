@@ -43,11 +43,11 @@ const AdvertiserPageProfileRating = () => {
         <React.Fragment>
             {rating_average ? (
                 <React.Fragment>
-                    <div className='advertiser-page__rating--row'>
+                    <div className='advertiser-page-profile__rating--row'>
                         <StarRating
-                            empty_star_className='advertiser-page__rating--star'
+                            empty_star_className='advertiser-page-profile__rating--star'
                             empty_star_icon='IcEmptyStar'
-                            full_star_className='advertiser-page__rating--star'
+                            full_star_className='advertiser-page-profile__rating--star'
                             full_star_icon='IcFullStar'
                             initial_value={rating_average_decimal ?? 0}
                             is_readonly
@@ -55,7 +55,7 @@ const AdvertiserPageProfileRating = () => {
                             should_allow_hover_effect={false}
                             star_size={isMobile() ? 17 : 20}
                         />
-                        <div className='advertiser-page__rating--text'>
+                        <div className='advertiser-page-profile__rating--text'>
                             <Text color='prominent' size={getTextSize()}>
                                 {rating_average_decimal}
                             </Text>
@@ -64,7 +64,7 @@ const AdvertiserPageProfileRating = () => {
                             </Text>
                         </div>
                     </div>
-                    <div className='advertiser-page__rating--row'>
+                    <div className='advertiser-page-profile__rating--row'>
                         <RecommendedBy
                             recommended_average={recommended_average}
                             recommended_count={recommended_count}
@@ -72,7 +72,7 @@ const AdvertiserPageProfileRating = () => {
                     </div>
                 </React.Fragment>
             ) : (
-                <div className='advertiser-page__rating--row'>
+                <div className='advertiser-page-profile__rating--row'>
                     <Text color='less-prominent' size={getTextSize()}>
                         <Localize i18n_default_text='Not rated yet' />
                     </Text>

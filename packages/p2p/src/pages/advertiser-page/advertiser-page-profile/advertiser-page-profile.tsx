@@ -48,16 +48,16 @@ const AdvertiserPageProfile = () => {
     };
 
     return (
-        <div className='advertiser-page-details-container'>
-            <div className='advertiser-page__header-details'>
+        <div className='advertiser-page-profile'>
+            <div className='advertiser-page-profile__header-details'>
                 <UserAvatar nickname={nickname} size={isMobile() ? 32 : 64} text_size={isMobile() ? 's' : 'sm'} />
-                <div className='advertiser-page__header-name--column'>
-                    <div className='advertiser-page__header-name'>
+                <div className='advertiser-page-profile__header-name--column'>
+                    <div className='advertiser-page-profile__header-name'>
                         <Text color='prominent' weight='bold'>
                             {nickname}
                         </Text>
                         {first_name && last_name && (
-                            <div className='advertiser-page__header-real-name'>
+                            <div className='advertiser-page-profile__header-real-name'>
                                 <Text color='less-prominent' line_height='xs' size='xs'>
                                     {`(${first_name} ${last_name})`}
                                 </Text>
@@ -65,26 +65,30 @@ const AdvertiserPageProfile = () => {
                         )}
                     </div>
                     <MobileWrapper>
-                        <div className='advertiser-page__row'>
-                            <div className='advertiser-page__rating--row'>
+                        <div className='advertiser-page-profile__row'>
+                            <div className='advertiser-page-profile__rating--row'>
                                 <OnlineStatusIcon is_online={is_online} />
                                 <OnlineStatusLabel is_online={is_online} last_online_time={last_online_time} />
                             </div>
-                            <div className='advertiser-page__rating--row'>
-                                <Text className='advertiser-page__joined-since' color='less-prominent' size='xxxs'>
+                            <div className='advertiser-page-profile__rating--row'>
+                                <Text
+                                    className='advertiser-page-profile__joined-since'
+                                    color='less-prominent'
+                                    size='xxxs'
+                                >
                                     {getJoinedSince()}
                                 </Text>
                             </div>
                         </div>
                     </MobileWrapper>
-                    <div className='advertiser-page__rating'>
+                    <div className='advertiser-page-profile__rating'>
                         <DesktopWrapper>
                             <React.Fragment>
-                                <div className='advertiser-page__rating--row'>
+                                <div className='advertiser-page-profile__rating--row'>
                                     <OnlineStatusIcon is_online={is_online} />
                                     <OnlineStatusLabel is_online={is_online} last_online_time={last_online_time} />
                                 </div>
-                                <div className='advertiser-page__rating--row'>
+                                <div className='advertiser-page-profile__rating--row'>
                                     <Text className='advertiser-page__joined-since' color='less-prominent' size='xs'>
                                         {getJoinedSince()}
                                     </Text>
@@ -93,7 +97,7 @@ const AdvertiserPageProfile = () => {
                         </DesktopWrapper>
                         <AdvertiserPageProfileRating />
                     </div>
-                    <div className='advertiser-page__row'>
+                    <div className='advertiser-page-profile__row'>
                         <TradeBadge
                             is_poa_verified={!!full_verification}
                             is_poi_verified={!!basic_verification}

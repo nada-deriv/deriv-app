@@ -15,7 +15,7 @@ const AdvertiserPageDropdownMenu = () => {
     } = advertiser_page_store;
 
     const onClickOutside = () => {
-        advertiser_page_store.setIsDropdownMenuVisible(false);
+        setIsDropdownMenuVisible(false);
     };
 
     useOnClickOutside(dropdown_menu_ref, onClickOutside, () => is_dropdown_menu_visible);

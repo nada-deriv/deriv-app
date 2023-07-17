@@ -7,54 +7,7 @@ import { useModalManagerContext } from 'Components/modal-manager/modal-manager-c
 import { buy_sell } from 'Constants/buy-sell';
 import { useStores } from 'Stores/index';
 import { generateEffectiveRate } from 'Utils/format-value';
-
-type TAvailabilityStatus = 0 | 1;
-type TAdvertiserDetails = {
-    id: string;
-    completed_orders_count: number;
-    is_blocked: TAvailabilityStatus;
-    is_favourite: TAvailabilityStatus;
-    is_online: TAvailabilityStatus;
-    is_recommended: null | number;
-    last_online_time: number | null;
-    name: string;
-    rating_average: null | number;
-    rating_count: number;
-    recommended_average: null | number;
-    recommended_count: number | null;
-    total_completion_rate: number | null;
-};
-
-type TAdvertiserPageDetails = {
-    account_currency: string;
-    advertiser_details: TAdvertiserDetails;
-    counterparty_type: string;
-    country: string;
-    created_time: number;
-    description: string;
-    effective_rate: null | number;
-    effective_rate_display: string;
-    id: string;
-    is_active: TAvailabilityStatus;
-    is_visible: TAvailabilityStatus;
-    local_currency: string;
-    max_order_amount_limit: number;
-    max_order_amount_limit_display: string;
-    min_order_amount_limit: number;
-    min_order_amount_limit_display: string;
-    payment_method: string;
-    payment_method_names: string[];
-    price: number | null;
-    price_display: string;
-    rate: number;
-    rate_display: string;
-    rate_type: string;
-    type: string;
-};
-
-export type TAdvertiserPageRow = {
-    row: TAdvertiserPageDetails;
-};
+import { TAdvertiserPageRow } from 'Types';
 
 const AdvertiserPageRow = ({ row: advert }: TAdvertiserPageRow) => {
     const { advertiser_page_store, buy_sell_store, floating_rate_store, general_store } = useStores();
@@ -72,7 +25,7 @@ const AdvertiserPageRow = ({ row: advert }: TAdvertiserPageRow) => {
         rate,
     } = advert;
     const { advertiser_details_id, counterparty_type } = advertiser_page_store;
-    const { advertiser_id, is_barred } = general_store;
+    const { advertiser_id, is_barred, label_size } = general_store;
     const { showModal } = useModalManagerContext();
 
     const is_buy_advert = counterparty_type === buy_sell.BUY;
@@ -113,7 +66,7 @@ const AdvertiserPageRow = ({ row: advert }: TAdvertiserPageRow) => {
                 ? payment_method_names.map(payment_method => {
                       return (
                           <div className='advertiser-page-adverts__payment-method' key={payment_method}>
-                              <Text line-height='l' size={isMobile() ? 'xxxs' : 'xs'}>
+                              <Text line-height='l' size={label_size}>
                                   {payment_method}
                               </Text>
                           </div>

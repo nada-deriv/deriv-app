@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useModalManagerContext } from 'Components/modal-manager/modal-manager-context';
 import { useStores } from 'Stores/index';
-import AdvertisePage from '../advertiser-page';
+import AdvertiserPage from '../advertiser-page';
 
 const mock_modal_manager = {
     showModal: jest.fn(),
@@ -77,9 +77,9 @@ jest.mock('react-router-dom', () => ({
     }),
 }));
 
-describe('<AdvertisePage/>', () => {
+describe('<AdvertiserPage/>', () => {
     it('should render advertiser page in default state', () => {
-        render(<AdvertisePage />);
+        render(<AdvertiserPage />);
 
         expect(screen.getByText("Advertiser's page")).toBeInTheDocument();
         expect(screen.getByText('adverts')).toBeInTheDocument();
@@ -92,7 +92,7 @@ describe('<AdvertisePage/>', () => {
                 is_counterparty_advertiser_blocked: true,
             },
         });
-        render(<AdvertisePage />);
+        render(<AdvertiserPage />);
 
         expect(screen.getByText('You have blocked test name.')).toBeInTheDocument();
     });
@@ -104,13 +104,13 @@ describe('<AdvertisePage/>', () => {
                 is_counterparty_advertiser_blocked: true,
             },
         });
-        render(<AdvertisePage />);
+        render(<AdvertiserPage />);
 
         userEvent.click(screen.getByRole('button', { name: 'Unblock' }));
 
         expect(mock_modal_manager.showModal).toHaveBeenCalledWith({ key: 'BlockUserModal' });
     });
-    it('should close advertiser page when page back button is clicked and set counterparties as active tab when navigated from profile page to advertiser page', () => {
+    it('should close advertiser page and activate counterparties tab on back button click', () => {
         (useStores as jest.Mock).mockReturnValue({
             ...mock_store,
             general_store: {
@@ -118,7 +118,7 @@ describe('<AdvertisePage/>', () => {
                 active_index: 3,
             },
         });
-        render(<AdvertisePage />);
+        render(<AdvertiserPage />);
 
         userEvent.click(screen.getByTestId('dt_page_return_icon'));
 
@@ -126,7 +126,7 @@ describe('<AdvertisePage/>', () => {
         expect(mock_store.my_profile_store.setActiveTab).toHaveBeenCalledWith('my_counterparties');
     });
     it('should close advertiser page when page back button is clicked', () => {
-        render(<AdvertisePage />);
+        render(<AdvertiserPage />);
 
         userEvent.click(screen.getByTestId('dt_page_return_icon'));
 
@@ -140,7 +140,7 @@ describe('<AdvertisePage/>', () => {
                 is_loading: true,
             },
         });
-        render(<AdvertisePage />);
+        render(<AdvertiserPage />);
 
         expect(screen.getByText('loading...')).toBeInTheDocument();
     });
@@ -153,7 +153,7 @@ describe('<AdvertisePage/>', () => {
             },
         });
 
-        render(<AdvertisePage />);
+        render(<AdvertiserPage />);
 
         expect(screen.getByText('error message')).toBeInTheDocument();
     });
@@ -170,7 +170,7 @@ describe('<AdvertisePage/>', () => {
             },
         });
 
-        render(<AdvertisePage />);
+        render(<AdvertiserPage />);
 
         expect(mock_modal_manager.showModal).toHaveBeenCalledWith(
             expect.objectContaining({
@@ -202,7 +202,7 @@ describe('<AdvertisePage/>', () => {
             },
         });
 
-        render(<AdvertisePage />);
+        render(<AdvertiserPage />);
         expect(mock_modal_manager.showModal).toHaveBeenCalledWith(
             expect.objectContaining({
                 key: 'ErrorModal',
@@ -233,7 +233,7 @@ describe('<AdvertisePage/>', () => {
             },
         });
 
-        render(<AdvertisePage />);
+        render(<AdvertiserPage />);
         mock_modal_manager.showModal.mock.calls[0][0].props.onClose();
         expect(mock_store.buy_sell_store.hideAdvertiserPage).toHaveBeenCalled();
         expect(mock_store.advertiser_page_store.onCancel).toHaveBeenCalled();
@@ -259,7 +259,7 @@ describe('<AdvertisePage/>', () => {
             },
         });
 
-        render(<AdvertisePage />);
+        render(<AdvertiserPage />);
         mock_modal_manager.showModal.mock.calls[0][0].props.onClose();
         expect(mock_store.buy_sell_store.hideAdvertiserPage).toHaveBeenCalled();
         expect(mock_store.my_profile_store.setActiveTab).toHaveBeenCalledWith('my_counterparties');

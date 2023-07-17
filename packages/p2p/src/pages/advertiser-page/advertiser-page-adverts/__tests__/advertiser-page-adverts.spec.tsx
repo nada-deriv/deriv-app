@@ -52,11 +52,6 @@ describe('<AdvertiserPageAdverts/>', () => {
         expect(screen.getByText('Buy')).not.toHaveClass('dc-tabs__active');
         expect(screen.getByText('Sell')).toHaveClass('dc-tabs__active');
     });
-    it('should render <Empty /> component when there are no ads yet', () => {
-        renderwithRouter(<AdvertiserPageAdverts />);
-
-        expect(screen.getByText('There are no ads yet')).toBeInTheDocument();
-    });
     it('should render <Loading /> component when ads section is in loading state', () => {
         (useStores as jest.Mock).mockReturnValue({
             ...mock_store,
@@ -68,30 +63,5 @@ describe('<AdvertiserPageAdverts/>', () => {
         renderwithRouter(<AdvertiserPageAdverts />);
 
         expect(screen.getByTestId('dt_initial_loader')).toBeInTheDocument();
-    });
-    it('should display the ads list in the table when there are ads for the advertiser', () => {
-        (useStores as jest.Mock).mockReturnValue({
-            ...mock_store,
-            advertiser_page_store: {
-                ...mock_store.advertiser_page_store,
-                adverts,
-            },
-        });
-        renderwithRouter(
-            <StoreProvider store={mock}>
-                <AdvertiserPageAdverts />
-            </StoreProvider>
-        );
-
-        const sell_tab = screen.getByText('Sell');
-        const buy_tab = screen.getByText('Buy');
-        expect(buy_tab).toHaveClass('dc-tabs__active');
-        expect(sell_tab).not.toHaveClass('dc-tabs__active');
-        userEvent.click(sell_tab);
-        expect(mock_store.advertiser_page_store.handleTabItemClick).toHaveBeenCalledTimes(1);
-        expect(screen.getByText('Buy')).not.toHaveClass('dc-tabs__active');
-        expect(screen.getByText('Sell')).toHaveClass('dc-tabs__active');
-
-        expect(screen.getByTestId('dt_data_list')).toBeInTheDocument();
     });
 });

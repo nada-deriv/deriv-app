@@ -1,6 +1,6 @@
 import React from 'react';
-import { mockStore, StoreProvider } from '@deriv/stores';
 import { render, screen } from '@testing-library/react';
+import { mockStore, StoreProvider } from '@deriv/stores';
 import AdvertiserPageAdvertsTableHeader from '../advertiser-page-adverts-table-header';
 
 const mock = mockStore({

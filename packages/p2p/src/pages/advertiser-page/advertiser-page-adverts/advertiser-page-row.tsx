@@ -6,8 +6,9 @@ import { localize, Localize } from 'Components/i18next';
 import { useModalManagerContext } from 'Components/modal-manager/modal-manager-context';
 import { buy_sell } from 'Constants/buy-sell';
 import { useStores } from 'Stores/index';
-import { generateEffectiveRate } from 'Utils/format-value';
 import { TAdvertiserPageRow } from 'Types';
+import { getLabelSize } from 'Utils/advertiser';
+import { generateEffectiveRate } from 'Utils/format-value';
 
 const AdvertiserPageRow = ({ row: advert }: TAdvertiserPageRow) => {
     const { advertiser_page_store, buy_sell_store, floating_rate_store, general_store } = useStores();
@@ -25,7 +26,7 @@ const AdvertiserPageRow = ({ row: advert }: TAdvertiserPageRow) => {
         rate,
     } = advert;
     const { advertiser_details_id, counterparty_type } = advertiser_page_store;
-    const { advertiser_id, is_barred, label_size } = general_store;
+    const { advertiser_id, is_barred } = general_store;
     const { showModal } = useModalManagerContext();
 
     const is_buy_advert = counterparty_type === buy_sell.BUY;
@@ -66,7 +67,7 @@ const AdvertiserPageRow = ({ row: advert }: TAdvertiserPageRow) => {
                 ? payment_method_names.map(payment_method => {
                       return (
                           <div className='advertiser-page-adverts__payment-method' key={payment_method}>
-                              <Text line-height='l' size={label_size}>
+                              <Text line-height='l' size={getLabelSize()}>
                                   {payment_method}
                               </Text>
                           </div>

@@ -56,7 +56,6 @@ export default class GeneralStore extends BaseStore {
     user_blocked_until = null;
     is_modal_open = false;
 
-    label_size = isMobile() ? 'xxxs' : 'xs';
     list_item_limit = isMobile() ? 10 : 50;
     path = {
         buy_sell: 0,

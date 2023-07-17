@@ -5,10 +5,11 @@ import { daysSince, isMobile } from '@deriv/shared';
 import { Localize } from 'Components/i18next';
 import { OnlineStatusIcon, OnlineStatusLabel } from 'Components/online-status';
 import { useStores } from 'Stores';
+import { getLabelSize } from 'Utils/advertiser';
 
 const AdvertiserPageProfileJoiningLabel = () => {
     const { advertiser_page_store, general_store } = useStores();
-    const { advertiser_id, advertiser_info, label_size } = general_store;
+    const { advertiser_id, advertiser_info } = general_store;
     const { advertiser_details_id, counterparty_advertiser_info } = advertiser_page_store;
 
     const is_my_advert = advertiser_details_id === advertiser_id;
@@ -30,7 +31,7 @@ const AdvertiserPageProfileJoiningLabel = () => {
                 <OnlineStatusLabel is_online={is_online} last_online_time={last_online_time} />
             </div>
             <div className='advertiser-page-profile__rating--row'>
-                <Text className='advertiser-page-profile__joined-since' color='less-prominent' size={label_size}>
+                <Text className='advertiser-page-profile__joined-since' color='less-prominent' size={getLabelSize()}>
                     {joined_since ? (
                         <Localize
                             i18n_default_text='Joined {{days_since_joined}}d'

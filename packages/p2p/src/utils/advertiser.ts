@@ -1,4 +1,5 @@
 import { localize } from 'Components/i18next';
+import { isMobile } from '@deriv/shared';
 
 /**
  * Function to get the message to be displayed in the blocked users modal
@@ -21,3 +22,10 @@ export const getMessage = (user_blocked_count: number): string => {
             });
     }
 };
+
+/**
+ * Function to get the label size based on the screen size
+ * @function getLabelSize
+ * @returns {string} label size
+ */
+export const getLabelSize = (): string => (isMobile() ? 'xxxs' : 'xs');

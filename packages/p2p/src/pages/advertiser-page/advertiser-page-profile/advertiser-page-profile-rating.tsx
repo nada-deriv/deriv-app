@@ -6,13 +6,14 @@ import { Localize } from 'Components/i18next';
 import RecommendedBy from 'Components/recommended-by';
 import StarRating from 'Components/star-rating';
 import { useStores } from 'Stores';
+import { getLabelSize } from 'Utils/advertiser';
 import AdvertiserPageProfileRatingLabel from './advertiser-page-profile-rating-label';
 
 const AdvertiserPageProfileRating = () => {
     const { advertiser_page_store, general_store } = useStores();
 
     const { advertiser_details_id, counterparty_advertiser_info } = advertiser_page_store;
-    const { advertiser_id, advertiser_info, label_size } = general_store;
+    const { advertiser_id, advertiser_info } = general_store;
     const is_my_advert = advertiser_details_id === advertiser_id;
     // Use general_store.advertiser_info since resubscribing to the same id from advertiser page returns error
     const info = is_my_advert ? advertiser_info : counterparty_advertiser_info;
@@ -39,10 +40,10 @@ const AdvertiserPageProfileRating = () => {
                             star_size={isMobile() ? 17 : 20}
                         />
                         <div className='advertiser-page-profile__rating--text'>
-                            <Text color='prominent' size={label_size}>
+                            <Text color='prominent' size={getLabelSize()}>
                                 {rating_average_decimal}
                             </Text>
-                            <Text color='less-prominent' size={label_size}>
+                            <Text color='less-prominent' size={getLabelSize()}>
                                 <AdvertiserPageProfileRatingLabel rating_count={rating_count} />
                             </Text>
                         </div>
@@ -56,7 +57,7 @@ const AdvertiserPageProfileRating = () => {
                 </React.Fragment>
             ) : (
                 <div className='advertiser-page-profile__rating--row'>
-                    <Text color='less-prominent' size={label_size}>
+                    <Text color='less-prominent' size={getLabelSize()}>
                         <Localize i18n_default_text='Not rated yet' />
                     </Text>
                 </div>

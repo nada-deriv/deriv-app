@@ -96,6 +96,13 @@
             padding-top: 0.7rem;
         }
 
+        &--label {
+            @include desktop {
+                display: flex;
+                padding-bottom: 0;
+            }
+        }
+
         &--row {
             align-items: center;
             border-left: 1px solid var(--general-section-1);

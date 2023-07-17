@@ -2,10 +2,8 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockStore, StoreProvider } from '@deriv/stores';
 import { useStores } from 'Stores';
 import AdvertiserPageAdverts from '../advertiser-page-adverts';
-import { adverts } from '../../__mocks__/mock-data';
 
 const mock_store: DeepPartial<ReturnType<typeof useStores>> = {
     advertiser_page_store: {
@@ -22,12 +20,6 @@ jest.mock('Stores', () => ({
     ...jest.requireActual('Stores'),
     useStores: jest.fn(() => mock_store),
 }));
-
-const mock = mockStore({
-    client: {
-        currency: 'USD',
-    },
-});
 
 describe('<AdvertiserPageAdverts/>', () => {
     const renderwithRouter = (component: React.ReactElement) => {

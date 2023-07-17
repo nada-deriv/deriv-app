@@ -21,7 +21,7 @@ const AdvertiserPageProfileJoiningLabel = () => {
 
     return (
         <div
-            className={classNames({
+            className={classNames('advertiser-page-profile__rating--label', {
                 'advertiser-page-profile__row': isMobile(),
             })}
         >

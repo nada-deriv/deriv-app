@@ -29,7 +29,7 @@ const BlockUserCount = () => {
                     classNameTarget='block-user-count__container'
                     message={getMessage(user_blocked_count)}
                 >
-                    <Icon className='block-user-count__container--icon' icon='IcUserBlockedOutline' size={16} />
+                    <Icon className='block-user-count__container--icon' icon='IcUserBlockedOutline' />
                     <Text color='less-prominent' size={isDesktop() ? 'xs' : '14'}>
                         {user_blocked_count}
                     </Text>

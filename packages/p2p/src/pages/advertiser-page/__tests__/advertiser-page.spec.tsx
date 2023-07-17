@@ -70,6 +70,13 @@ jest.mock('Stores', () => ({
     useStores: jest.fn(() => mock_store),
 }));
 
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useHistory: () => ({
+        push: jest.fn(),
+    }),
+}));
+
 describe('<AdvertisePage/>', () => {
     it('should render advertiser page in default state', () => {
         render(<AdvertisePage />);

@@ -11,11 +11,9 @@ import AdvertiserPageProfileJoiningLabel from './advertiser-page-profile-joining
 import AdvertiserPageStats from './advertiser-page-stats';
 
 const AdvertiserPageProfile = () => {
-    const { advertiser_page_store, general_store } = useStores();
+    const { advertiser_page_store } = useStores();
 
-    const is_my_advert = advertiser_page_store.advertiser_details_id === general_store.advertiser_id;
-    // Use general_store.advertiser_info since resubscribing to the same id from advertiser page returns error
-    const info = is_my_advert ? general_store.advertiser_info : advertiser_page_store.counterparty_advertiser_info;
+    const { info, is_my_advert } = advertiser_page_store;
 
     const { basic_verification, buy_orders_count, first_name, full_verification, last_name, name, sell_orders_count } =
         info;

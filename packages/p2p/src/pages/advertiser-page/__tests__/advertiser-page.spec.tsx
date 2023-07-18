@@ -33,6 +33,9 @@ const mock_store: DeepPartial<ReturnType<typeof useStores>> = {
         onUnmount: jest.fn(),
         onCancel: jest.fn(),
         is_loading: false,
+        info: {
+            name: 'name',
+        },
     },
     general_store: {
         advertiser_id: 'id2',

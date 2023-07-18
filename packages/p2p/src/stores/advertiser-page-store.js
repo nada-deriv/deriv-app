@@ -41,6 +41,8 @@ export default class AdvertiserPageStore extends BaseStore {
             advertiser_details: computed,
             advertiser_details_id: computed,
             advertiser_details_name: computed,
+            info: computed,
+            is_my_advert: computed,
             getCounterpartyAdvertiserList: action.bound,
             handleTabItemClick: action.bound,
             onAdvertiserIdUpdate: action.bound,

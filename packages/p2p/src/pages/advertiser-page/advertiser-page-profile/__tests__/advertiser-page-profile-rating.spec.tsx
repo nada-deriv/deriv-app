@@ -7,7 +7,7 @@ const mock_store: DeepPartial<ReturnType<typeof useStores>> = {
     advertiser_page_store: {
         advertiser_details_id: 'id1',
         advertiser_details_name: 'test name',
-        counterparty_advertiser_info: {
+        info: {
             rating_average: null,
             rating_count: 0,
             recommended_average: null,
@@ -41,8 +41,8 @@ describe('<AdvertiserPageProfileRating/>', () => {
             ...mock_store,
             advertiser_page_store: {
                 ...mock_store.advertiser_page_store,
-                counterparty_advertiser_info: {
-                    ...mock_store.advertiser_page_store.counterparty_advertiser_info,
+                info: {
+                    ...mock_store.advertiser_page_store.info,
                     rating_average: 4,
                     rating_count: 1,
                 },
@@ -57,8 +57,8 @@ describe('<AdvertiserPageProfileRating/>', () => {
             ...mock_store,
             advertiser_page_store: {
                 ...mock_store.advertiser_page_store,
-                counterparty_advertiser_info: {
-                    ...mock_store.advertiser_page_store.counterparty_advertiser_info,
+                info: {
+                    ...mock_store.advertiser_page_store.info,
                     rating_average: 4.5,
                     rating_count: 3,
                 },

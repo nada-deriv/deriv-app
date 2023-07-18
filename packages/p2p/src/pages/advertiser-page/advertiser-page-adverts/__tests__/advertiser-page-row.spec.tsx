@@ -11,6 +11,7 @@ const mock_store: DeepPartial<ReturnType<typeof useStores>> = {
     advertiser_page_store: {
         advertiser_details_id: 'id1',
         counterparty_type: 'sell',
+        is_my_advert: false,
     },
     general_store: {
         advertiser_id: 'id2',
@@ -103,9 +104,9 @@ describe('<AdvertiserPageRow/>', () => {
         const new_props = { ...props, row: { ...props.row, type: 'buy', counterparty_type: 'sell' } };
         (useStores as jest.Mock).mockReturnValueOnce({
             ...mock_store,
-            general_store: {
-                ...mock_store.general_store,
-                advertiser_id: 'id1',
+            advertiser_page_store: {
+                ...mock_store.advertiser_page_store,
+                is_my_advert: true,
             },
         });
         render(

@@ -9,6 +9,9 @@ const mock_store: DeepPartial<ReturnType<typeof useStores>> = {
         counterparty_advertiser_info: {
             created_time: 1686539211,
         },
+        info: {
+            created_time: 1686539211,
+        },
     },
     general_store: {
         advertiser_id: 'id2',
@@ -29,8 +32,8 @@ describe('<AdvertiserPageProfileJoiningLabel/>', () => {
             ...mock_store,
             advertiser_page_store: {
                 ...mock_store.advertiser_page_store,
-                counterparty_advertiser_info: {
-                    ...mock_store.advertiser_page_store.counterparty_advertiser_info,
+                info: {
+                    ...mock_store.advertiser_page_store.info,
                     created_time: new Date().getTime() / 1000 - 86400,
                 },
             },
@@ -44,8 +47,8 @@ describe('<AdvertiserPageProfileJoiningLabel/>', () => {
             ...mock_store,
             advertiser_page_store: {
                 ...mock_store.advertiser_page_store,
-                counterparty_advertiser_info: {
-                    ...mock_store.advertiser_page_store.counterparty_advertiser_info,
+                info: {
+                    ...mock_store.advertiser_page_store.info,
                     created_time: new Date().getTime() / 1000,
                 },
             },

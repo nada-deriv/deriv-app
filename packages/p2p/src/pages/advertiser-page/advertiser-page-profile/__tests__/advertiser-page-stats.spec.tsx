@@ -8,7 +8,7 @@ import AdvertisePageStats from '../advertiser-page-stats';
 const mock_store: DeepPartial<ReturnType<typeof useStores>> = {
     advertiser_page_store: {
         advertiser_details_id: 'id1',
-        counterparty_advertiser_info: {
+        info: {
             buy_completion_rate: 100,
             buy_orders_amount: '2.00',
             buy_orders_count: 2,

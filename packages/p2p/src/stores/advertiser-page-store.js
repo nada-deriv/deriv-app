@@ -90,6 +90,15 @@ export default class AdvertiserPageStore extends BaseStore {
         return this.advert?.advertiser_details?.name;
     }
 
+    get is_my_advert() {
+        return this.advertiser_details_id === this.root_store.general_store.advertiser_id;
+    }
+
+    // Use general_store.advertiser_info since resubscribing to the same id from advertiser page returns error
+    get info() {
+        return this.is_my_advert ? this.root_store.general_store.advertiser_info : this.counterparty_advertiser_info;
+    }
+
     loadMoreAdvertiserAdverts({ startIndex }) {
         const { buy_sell_store, general_store } = this.root_store;
         this.setIsLoadingAdverts(true);

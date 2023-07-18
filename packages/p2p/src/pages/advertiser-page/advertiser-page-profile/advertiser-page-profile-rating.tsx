@@ -6,17 +6,13 @@ import { Localize } from 'Components/i18next';
 import RecommendedBy from 'Components/recommended-by';
 import StarRating from 'Components/star-rating';
 import { useStores } from 'Stores';
-import { getLabelSize } from 'Utils/advertiser';
+import { getFieldValueSize } from 'Utils/responsive';
 import AdvertiserPageProfileRatingLabel from './advertiser-page-profile-rating-label';
 
 const AdvertiserPageProfileRating = () => {
-    const { advertiser_page_store, general_store } = useStores();
+    const { advertiser_page_store } = useStores();
 
-    const { advertiser_details_id, counterparty_advertiser_info } = advertiser_page_store;
-    const { advertiser_id, advertiser_info } = general_store;
-    const is_my_advert = advertiser_details_id === advertiser_id;
-    // Use general_store.advertiser_info since resubscribing to the same id from advertiser page returns error
-    const info = is_my_advert ? advertiser_info : counterparty_advertiser_info;
+    const { info } = advertiser_page_store;
 
     const { rating_average, rating_count, recommended_average, recommended_count } = info;
 
@@ -40,10 +36,10 @@ const AdvertiserPageProfileRating = () => {
                             star_size={isMobile() ? 17 : 20}
                         />
                         <div className='advertiser-page-profile__rating--text'>
-                            <Text color='prominent' size={getLabelSize()}>
+                            <Text color='prominent' size={getFieldValueSize('xxxs', 'xs')}>
                                 {rating_average_decimal}
                             </Text>
-                            <Text color='less-prominent' size={getLabelSize()}>
+                            <Text color='less-prominent' size={getFieldValueSize('xxxs', 'xs')}>
                                 <AdvertiserPageProfileRatingLabel rating_count={rating_count} />
                             </Text>
                         </div>
@@ -57,7 +53,7 @@ const AdvertiserPageProfileRating = () => {
                 </React.Fragment>
             ) : (
                 <div className='advertiser-page-profile__rating--row'>
-                    <Text color='less-prominent' size={getLabelSize()}>
+                    <Text color='less-prominent' size={getFieldValueSize('xxxs', 'xs')}>
                         <Localize i18n_default_text='Not rated yet' />
                     </Text>
                 </div>

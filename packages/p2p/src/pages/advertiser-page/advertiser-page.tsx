@@ -21,25 +21,19 @@ const AdvertiserPage = () => {
     const {
         active_index,
         active_tab_route,
-        advertiser_id,
-        advertiser_info,
         block_unblock_user_error,
         error_code,
         is_block_unblock_user_loading,
         setBlockUnblockUserError,
     } = general_store;
     const {
-        advertiser_details_id,
         advertiser_details_name,
-        counterparty_advertiser_info,
         error_message: error_message_api,
+        info,
         is_counterparty_advertiser_blocked,
         is_loading,
+        is_my_advert,
     } = advertiser_page_store;
-
-    const is_my_advert = advertiser_details_id === advertiser_id;
-    // Use general_store.advertiser_info since resubscribing to the same id from advertiser page returns error
-    const info = is_my_advert ? advertiser_info : counterparty_advertiser_info;
 
     const history = useHistory();
 

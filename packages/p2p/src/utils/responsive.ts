@@ -5,5 +5,5 @@ import { isMobile } from '@deriv/shared';
  * @function getFieldValueSize
  * @returns {string} label size
  */
-export const getFieldValueSize = (mobile_size: string, desktop_size: string): string =>
+export const getFieldValueSize = (mobile_size: string, desktop_size: string) =>
     isMobile() ? mobile_size : desktop_size;

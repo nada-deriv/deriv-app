@@ -12,30 +12,28 @@ const BlockUserCount = () => {
     const { user_blocked_count } = general_store;
 
     return (
-        <React.Fragment>
-            <div
-                data-testid='dt_block_user_count'
-                onClick={
-                    isMobile()
-                        ? () => showModal({ key: 'BlockedCountModal', props: {} })
-                        : () => {
-                              /* do nothing */
-                          }
-                }
+        <div
+            data-testid='dt_block_user_count'
+            onClick={
+                isMobile()
+                    ? () => showModal({ key: 'BlockedCountModal', props: {} })
+                    : () => {
+                          /* do nothing */
+                      }
+            }
+        >
+            <Popover
+                alignment='top'
+                className='block-user-count'
+                classNameTarget='block-user-count__container'
+                message={getMessage(user_blocked_count)}
             >
-                <Popover
-                    alignment='top'
-                    className='block-user-count'
-                    classNameTarget='block-user-count__container'
-                    message={getMessage(user_blocked_count)}
-                >
-                    <Icon className='block-user-count__container--icon' icon='IcUserBlockedOutline' />
-                    <Text color='less-prominent' size={isDesktop() ? 'xs' : '14'}>
-                        {user_blocked_count}
-                    </Text>
-                </Popover>
-            </div>
-        </React.Fragment>
+                <Icon className='block-user-count__container--icon' icon='IcUserBlockedOutline' />
+                <Text color='less-prominent' size={isDesktop() ? 'xs' : '14'}>
+                    {user_blocked_count}
+                </Text>
+            </Popover>
+        </div>
     );
 };
 

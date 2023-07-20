@@ -1,5 +1,4 @@
 import { localize } from 'Components/i18next';
-import { isMobile } from '@deriv/shared';
 
 /**
  * Function to get the message to be displayed in the blocked users modal
@@ -8,7 +7,7 @@ import { isMobile } from '@deriv/shared';
  * @return { string }
  * */
 
-export const getMessage = (user_blocked_count: number): string => {
+export const getMessage = (user_blocked_count: number) => {
     switch (user_blocked_count) {
         case 0:
             return localize('Nobody has blocked you. Yay!');

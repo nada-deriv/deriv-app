@@ -25,9 +25,7 @@ const InfiniteDataList = ({
     items,
     keyMapperFn,
     loadMoreRowsFn,
-    onScroll = () => {
-        // Do nothing.
-    },
+    onScroll,
     rowRenderer,
     overscanRowCount,
     getRowSize,

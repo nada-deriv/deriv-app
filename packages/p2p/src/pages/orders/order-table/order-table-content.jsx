@@ -26,6 +26,7 @@ const OrderTableContent = () => {
         client: { loginid },
     } = useStore();
     const history = useHistory();
+    const { is_active_tab } = general_store;
 
     React.useEffect(
         () =>
@@ -73,7 +74,7 @@ const OrderTableContent = () => {
 
     return (
         <P2pEmpty has_tabs icon='IcNoOrder' title={localize('You have no orders.')}>
-            {general_store.is_active_tab && (
+            {is_active_tab && (
                 <Button
                     primary
                     large
